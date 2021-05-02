@@ -3763,6 +3763,8 @@
 #include "modular_skyrat\modules\cryosleep\code\ai.dm"
 #include "modular_skyrat\modules\cryosleep\code\area.dm"
 #include "modular_skyrat\modules\cryosleep\code\config.dm"
+#include "modular_skyrat\modules\crypto\code\controllers\subsystem\cryptocurrency.dm"
+#include "modular_skyrat\modules\crypto\code\programs\cointrader.dm"
 #include "modular_skyrat\modules\cum\jerkoff_verb.dm"
 #include "modular_skyrat\modules\cum\seaofmen_keg.dm"
 #include "modular_skyrat\modules\cum\chemistry\reagents\cum_reagent.dm"
