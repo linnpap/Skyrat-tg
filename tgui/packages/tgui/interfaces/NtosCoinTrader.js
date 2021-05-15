@@ -10,28 +10,44 @@ import { NtosWindow } from '../layouts';
 export const NtosCoinTrader = (props, context) => {
   const { act, data } = useBackend(context);
   const { crypto_price } = data;
+  const { crypto_price_history } = data;
+  const { crypto_trend } = data;
   const [
     sortByField,
     setSortByField,
   ] = useLocalState(context, 'sortByField', null);
+  const cryptoprice_graph = crypto_price_history.map((value, i) => [i, value]);
+  const minValue = Math.min(...crypto_price_history);
+  const maxValue = Math.max(...crypto_price_history);
   return (
     <NtosWindow
       width={450}
-      height={350}>
+      height={400}>
       <NtosWindow.Content>
-        <Flex mx={-0.5} mb={1}>
-          <Flex.Item mx={0.5} grow={1}>
-		    <Section position="relative" height="100%">
-			  <Chart.Line
-				fillPositionedParent
-				data={[0,7,1,3,1,7,1,8,1,7,2,7,1,8,3,7]}
-				rangeX={[0, 9]}
-				rangeY={[0, 10]}
-				strokeColor="rgba(0, 181, 173, 1)"
-				fillColor="rgba(0, 181, 173, 0.25)" />
-			</Section>
-          </Flex.Item>
-		</Flex>
+		<Section height={8} width='70%'>
+		  title='{crypto_trend}'
+		  <Chart.Line
+			height={8}
+			fillPositionedParent
+			data={cryptoprice_graph}
+			rangeX={[0, 39]}
+			rangeY={[minValue-1, maxValue+1]}
+			strokeColor="rgba(0, 181, 173, 1)"/>
+		</Section>
+		<Button
+          //icon="fist-raised"
+          tooltip='Buy Crypto'
+          tooltipPosition="bottom"
+          //disabled={data.GameActive === 0 || data.PauseState === 1}
+          onClick={() => act('buyCrypto')}
+          content="Buy" />
+		<Button
+          //icon="fist-raised"
+          tooltip="Sell Crypto"
+          tooltipPosition="bottom"
+          //disabled={data.GameActive === 0 || data.PauseState === 1}
+          onClick={() => act('sellCrypto')}
+          content="Sell" />
       </NtosWindow.Content>
     </NtosWindow>
   );
